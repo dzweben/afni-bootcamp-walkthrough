@@ -1,0 +1,26 @@
+# MkDocs build output
+site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Bootcamp PDFs — mirrored from NIMH; re-fetch with scripts/fetch-pdfs.sh
+day1/pdfs/*.pdf
+
+# Local cluster-fetched assets (screenshots pushed manually as they're captured)
+assets/_scratch/
+
+# video-key (private, not for public repo)
+day1/video-key.txt

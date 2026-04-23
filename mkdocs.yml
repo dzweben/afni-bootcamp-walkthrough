@@ -1,0 +1,81 @@
+site_name: AFNI Bootcamp — An Interactive Walkthrough
+site_description: A concept-first, hands-on walkthrough of the NIMH AFNI Bootcamp curriculum, built alongside Claude.
+site_author: Danny Zweben
+site_url: https://dzweben.github.io/afni-bootcamp-walkthrough/
+repo_url: https://github.com/dzweben/afni-bootcamp-walkthrough
+repo_name: dzweben/afni-bootcamp-walkthrough
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Setup:
+      - Cluster + AFNI install: setup/cluster-setup.md
+      - AFNI file formats: setup/file-formats.md
+  - Day 1:
+      - Overview: day1/index.md
+      - 1. AFNI GUI — Part 1: day1/01-gui-part1.md
+      - 2. Regression — Part 1: day1/02-regression-part1.md
+      - 3. Regression — Part 2: day1/03-regression-part2.md
+      - 4. AFNI GUI — Part 2: day1/04-gui-part2.md
+      - 5. Alignment: day1/05-alignment.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/dzweben

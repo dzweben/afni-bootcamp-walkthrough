@@ -1,0 +1,31 @@
+name: Deploy MkDocs site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          key: mkdocs-material-${{ hashFiles('.github/workflows/deploy.yml') }}
+          path: ~/.cache/pip
+          restore-keys: |
+            mkdocs-material-
+      - name: Install MkDocs
+        run: pip install mkdocs-material
+      - name: Build and deploy
+        run: mkdocs gh-deploy --force
