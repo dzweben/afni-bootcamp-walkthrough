@@ -684,10 +684,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-we-build-a-predicted-bold-at-all" class="md-nav__link">
+  <a href="#why-hrf-convolution-has-to-happen-its-a-mechanical-requirement-not-a-research-question" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why we build a predicted BOLD at all
+        Why HRF convolution has to happen — it's a mechanical requirement, not a research question
       
     </span>
   </a>
@@ -1309,10 +1309,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-we-build-a-predicted-bold-at-all" class="md-nav__link">
+  <a href="#why-hrf-convolution-has-to-happen-its-a-mechanical-requirement-not-a-research-question" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why we build a predicted BOLD at all
+        Why HRF convolution has to happen — it's a mechanical requirement, not a research question
       
     </span>
   </a>
@@ -1840,17 +1840,17 @@
 <p>Every one of those questions ultimately gets answered <em>across subjects</em>, with group-level statistics. But every one of them needs, as an input: per subject, per voxel, per condition, <strong>a single number that says how strongly that voxel responded to that condition in that subject</strong>.</p>
 <p>That single number is what the HRF + convolution + regression pipeline produces. It's called <strong>β</strong>. Everything that comes later — group maps, between-group tests, correlations with behavior, within-subject changes over time — operates on those β numbers.</p>
 <p>So the job of the whole subject-level pipeline is narrow: <strong>take each voxel's noisy 152-timepoint signal, per condition, and reduce it to one summary number (β) and an uncertainty (SE, t).</strong></p>
-<h3 id="why-we-build-a-predicted-bold-at-all">Why we build a <em>predicted</em> BOLD at all<a class="headerlink" href="#why-we-build-a-predicted-bold-at-all" title="Permanent link">&para;</a></h3>
-<p>To boil down a voxel's timeseries to "how much did it respond," we need to compare what it actually did to what it <em>should have done</em> if it were responsive. If the two look similar, the voxel is responsive. If not, it isn't.</p>
-<p>What a responsive voxel should have done depends on two things:</p>
+<h3 id="why-hrf-convolution-has-to-happen-its-a-mechanical-requirement-not-a-research-question">Why HRF convolution has to happen — it's a mechanical requirement, not a research question<a class="headerlink" href="#why-hrf-convolution-has-to-happen-its-a-mechanical-requirement-not-a-research-question" title="Permanent link">&para;</a></h3>
+<p>HRF convolution is <em>not</em> something you do to answer a research question. It's a step every subject-level activation regression has to include, because without it β is wrong. The logic:</p>
 <ol>
-<li><strong>The experiment you ran</strong> — when each condition was on, when each event happened.</li>
-<li><strong>The physiology of BOLD</strong> — blood flow takes seconds to respond and tens of seconds to clear. The signal is a smeared-out, delayed echo of the underlying neural activity.</li>
+<li><strong>β is estimated by regressing a voxel's measured BOLD onto a predictor timeseries.</strong> The regression finds the scaling factor that best maps predictor → measured. That scaling factor is β.</li>
+<li><strong>For β to mean "amplitude of response to condition X," the predictor has to have the shape BOLD actually takes in response to X.</strong> If the predictor shape is wrong, β is still a number — but it no longer corresponds to what you wanted to measure.</li>
+<li><strong>BOLD has a specific, known shape</strong> — rounded, delayed, ~30 s long, with a brief undershoot. That shape is the HRF.</li>
+<li><strong>The only way to turn a stimulus timeline into a predictor with that shape</strong> is to convolve the timeline with the HRF.</li>
+<li><strong>Without that convolution</strong>, your predictor is the raw stimulus shape — a square wave for blocks, a spike for brief events — which doesn't match what BOLD actually does. The regression fits a wrong-shape predictor to a rounded signal and assigns a small β even at voxels that genuinely responded. You'd systematically underestimate activation across the whole brain.</li>
 </ol>
-<p>If you just compared the voxel to your stimulus timeline directly (a 20-s-on / 20-s-off square wave), the match would be poor <em>even for genuinely responsive voxels</em> — because the actual BOLD signal doesn't look like a square wave. It looks like a rounded, delayed, smeared thing. The square-wave predictor has the wrong shape.</p>
-<p>What you want is a predictor that has the <em>right</em> shape for what BOLD actually does. You get that by taking your stimulus timeline and running it through the HRF — i.e., computing what BOLD <em>would</em> look like in a voxel that cared about this stimulus, given how slow and smeared BOLD is.</p>
-<p>That's the entire point of HRF convolution: <strong>build a per-subject, per-condition predicted BOLD timeseries that has the right shape to match what responsive voxels would actually produce</strong>, so that a regression against it can recover a meaningful amplitude β.</p>
-<p>Without HRF convolution, the regression would systematically underestimate β at responsive voxels (square-wave predictor vs. rounded signal = poor fit = small estimated amplitude) and you'd miss most of your real activation.</p>
+<p>So: every time you're going to estimate activation to a stimulus, you convolve that stimulus with the HRF first, then fit. No exceptions. It's a precondition for β to be meaningful, not itself a thing you're testing.</p>
+<p>Once β is estimated, the HRF's role is done. The actual research questions — group activation, patient vs. control, trait correlations, within-subject change over time — operate on β maps from Stage 1. None of them convolve again.</p>
 <h3 id="the-three-stages-of-a-task-fmri-analysis">The three stages of a task fMRI analysis<a class="headerlink" href="#the-three-stages-of-a-task-fmri-analysis" title="Permanent link">&para;</a></h3>
 <p>This is the skeleton underneath <em>every</em> task fMRI study:</p>
 <p><strong>Stage 1 — Subject-level fit.</strong> For each subject, at each voxel, regress the measured BOLD against HRF-convolved predictors (one per condition) plus nuisance regressors. Output: β maps and t maps, per condition, per subject. <strong>This is the only stage where the HRF enters.</strong> AFNI's <code>3dDeconvolve</code> does this.</p>
