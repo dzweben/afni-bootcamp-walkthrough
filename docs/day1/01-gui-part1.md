@@ -82,22 +82,19 @@ That single number is what the HRF + convolution + regression pipeline produces.
 
 So the job of the whole subject-level pipeline is narrow: **take each voxel's noisy 152-timepoint signal, per condition, and reduce it to one summary number (β) and an uncertainty (SE, t).**
 
-### Why we build a *predicted* BOLD at all
+### Why HRF convolution has to happen — it's a mechanical requirement, not a research question
 
-To boil down a voxel's timeseries to "how much did it respond," we need to compare what it actually did to what it *should have done* if it were responsive. If the two look similar, the voxel is responsive. If not, it isn't.
+HRF convolution is *not* something you do to answer a research question. It's a step every subject-level activation regression has to include, because without it β is wrong. The logic:
 
-What a responsive voxel should have done depends on two things:
+1. **β is estimated by regressing a voxel's measured BOLD onto a predictor timeseries.** The regression finds the scaling factor that best maps predictor → measured. That scaling factor is β.
+2. **For β to mean "amplitude of response to condition X," the predictor has to have the shape BOLD actually takes in response to X.** If the predictor shape is wrong, β is still a number — but it no longer corresponds to what you wanted to measure.
+3. **BOLD has a specific, known shape** — rounded, delayed, ~30 s long, with a brief undershoot. That shape is the HRF.
+4. **The only way to turn a stimulus timeline into a predictor with that shape** is to convolve the timeline with the HRF.
+5. **Without that convolution**, your predictor is the raw stimulus shape — a square wave for blocks, a spike for brief events — which doesn't match what BOLD actually does. The regression fits a wrong-shape predictor to a rounded signal and assigns a small β even at voxels that genuinely responded. You'd systematically underestimate activation across the whole brain.
 
-1. **The experiment you ran** — when each condition was on, when each event happened.
-2. **The physiology of BOLD** — blood flow takes seconds to respond and tens of seconds to clear. The signal is a smeared-out, delayed echo of the underlying neural activity.
+So: every time you're going to estimate activation to a stimulus, you convolve that stimulus with the HRF first, then fit. No exceptions. It's a precondition for β to be meaningful, not itself a thing you're testing.
 
-If you just compared the voxel to your stimulus timeline directly (a 20-s-on / 20-s-off square wave), the match would be poor *even for genuinely responsive voxels* — because the actual BOLD signal doesn't look like a square wave. It looks like a rounded, delayed, smeared thing. The square-wave predictor has the wrong shape.
-
-What you want is a predictor that has the *right* shape for what BOLD actually does. You get that by taking your stimulus timeline and running it through the HRF — i.e., computing what BOLD *would* look like in a voxel that cared about this stimulus, given how slow and smeared BOLD is.
-
-That's the entire point of HRF convolution: **build a per-subject, per-condition predicted BOLD timeseries that has the right shape to match what responsive voxels would actually produce**, so that a regression against it can recover a meaningful amplitude β.
-
-Without HRF convolution, the regression would systematically underestimate β at responsive voxels (square-wave predictor vs. rounded signal = poor fit = small estimated amplitude) and you'd miss most of your real activation.
+Once β is estimated, the HRF's role is done. The actual research questions — group activation, patient vs. control, trait correlations, within-subject change over time — operate on β maps from Stage 1. None of them convolve again.
 
 ### The three stages of a task fMRI analysis
 
