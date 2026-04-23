@@ -29,7 +29,7 @@
     
     
       
-        <title>1. AFNI GUI — Part 1 - AFNI Bootcamp — An Interactive Walkthrough</title>
+        <title>1. Intro to AFNI + FMRI data - AFNI Bootcamp — An Interactive Walkthrough</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lecture-1-afni-gui-part-1" class="md-skip">
+        <a href="#lecture-1-intro-to-afni-and-fmri-data" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1. AFNI GUI — Part 1
+              1. Intro to AFNI + FMRI data
             
           </span>
         </div>
@@ -584,7 +584,7 @@
   <span class="md-ellipsis">
     
   
-    1. AFNI GUI — Part 1
+    1. Intro to AFNI + FMRI data
   
 
     
@@ -602,7 +602,7 @@
   <span class="md-ellipsis">
     
   
-    1. AFNI GUI — Part 1
+    1. Intro to AFNI + FMRI data
   
 
     
@@ -628,10 +628,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-this-lecture-answers" class="md-nav__link">
+  <a href="#framing-why-this-lecture-comes-first" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this lecture answers
+        Framing: why this lecture comes first
       
     </span>
   </a>
@@ -639,10 +639,270 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#planned-sections-to-be-filled-in-during-session-1" class="md-nav__link">
+  <a href="#what-afni-is-and-who-made-it" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Planned sections (to be filled in during Session 1)
+        What AFNI is (and who made it)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fmri-in-five-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FMRI in five minutes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-afni-data-model-the-core-of-this-lecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The AFNI data model — the core of this lecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The AFNI data model — the core of this lecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voxel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voxel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-brick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-brick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-formats-on-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File formats on disk
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File formats on disk">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#brik-head-the-afni-native-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRIK + HEAD (the AFNI native format)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Views
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filenames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filenames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nifti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NIfTI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-formats-afni-can-ingest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other formats AFNI can ingest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-dicom-to-afni-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From DICOM to AFNI dataset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-afni-program-landscape-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The AFNI program landscape (orientation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-look-at-real-data-with-3dinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hands-on — look at real data with 3dinfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hands-on — look at real data with 3dinfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-walk-to-the-ft-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Walk to the FT dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-inspect-the-anatomical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Inspect the anatomical
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-inspect-the-epi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Inspect the EPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-pull-a-single-sub-brick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Pull a single sub-brick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-peek-at-the-head-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Peek at the HEAD file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint questions
       
     </span>
   </a>
@@ -815,10 +1075,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-this-lecture-answers" class="md-nav__link">
+  <a href="#framing-why-this-lecture-comes-first" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this lecture answers
+        Framing: why this lecture comes first
       
     </span>
   </a>
@@ -826,10 +1086,270 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#planned-sections-to-be-filled-in-during-session-1" class="md-nav__link">
+  <a href="#what-afni-is-and-who-made-it" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Planned sections (to be filled in during Session 1)
+        What AFNI is (and who made it)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fmri-in-five-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FMRI in five minutes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-afni-data-model-the-core-of-this-lecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The AFNI data model — the core of this lecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The AFNI data model — the core of this lecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voxel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voxel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-brick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-brick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-formats-on-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File formats on disk
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File formats on disk">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#brik-head-the-afni-native-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BRIK + HEAD (the AFNI native format)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Views
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filenames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filenames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nifti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NIfTI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-formats-afni-can-ingest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other formats AFNI can ingest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-dicom-to-afni-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From DICOM to AFNI dataset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-afni-program-landscape-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The AFNI program landscape (orientation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-look-at-real-data-with-3dinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hands-on — look at real data with 3dinfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hands-on — look at real data with 3dinfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-walk-to-the-ft-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Walk to the FT dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-inspect-the-anatomical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Inspect the anatomical
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-inspect-the-epi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Inspect the EPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-pull-a-single-sub-brick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Pull a single sub-brick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-peek-at-the-head-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Peek at the HEAD file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint questions
       
     </span>
   </a>
@@ -867,31 +1387,439 @@
   
 
 
-<h1 id="lecture-1-afni-gui-part-1">Lecture 1 — AFNI GUI, Part 1<a class="headerlink" href="#lecture-1-afni-gui-part-1" title="Permanent link">&para;</a></h1>
-<p><strong>Status:</strong> Stub — we'll build this out in Session 1.</p>
+<h1 id="lecture-1-intro-to-afni-and-fmri-data">Lecture 1 — Intro to AFNI and FMRI Data<a class="headerlink" href="#lecture-1-intro-to-afni-and-fmri-data" title="Permanent link">&para;</a></h1>
 <p><strong>Official PDF:</strong> <a href="https://afni.nimh.nih.gov/pub/dist/edu/data/CD.expanded/afni_handouts/afni01_intro.pdf">afni01_intro.pdf</a></p>
-<h2 id="what-this-lecture-answers">What this lecture answers<a class="headerlink" href="#what-this-lecture-answers" title="Permanent link">&para;</a></h2>
+<p><strong>The one thing to walk away with:</strong> AFNI has a very particular idea of what a <strong>dataset</strong> is, and every program in the package — all 750+ of them — is built around that idea. Until that clicks, the GUI and the command line both feel like noise. After it clicks, everything else is navigation.</p>
+<hr />
+<h2 id="framing-why-this-lecture-comes-first">Framing: why this lecture comes first<a class="headerlink" href="#framing-why-this-lecture-comes-first" title="Permanent link">&para;</a></h2>
+<p>Most tutorials start by launching the GUI, clicking through menus, and showing you brains. We're going to delay that by ~45 minutes. Reason: the GUI only makes sense once you know what an <strong>AFNI dataset</strong> actually <em>is</em>. Otherwise it's three little windows full of pixels and no way to tell "overlay vs underlay" from "axial vs coronal" from "sub-brick #7 vs sub-brick #8."</p>
+<p>So the plan:</p>
+<ol>
+<li>Quick context on what AFNI is and who made it (1 min).</li>
+<li>Refresh on BOLD + the hemodynamic response (5 min) — the signal AFNI is built to analyze.</li>
+<li><strong>The AFNI data model</strong> — dataset / voxel / sub-brick / header (15 min). This is the lecture.</li>
+<li>File formats on disk: <code>+orig</code>, <code>+tlrc</code>, <code>.HEAD/.BRIK</code>, <code>.nii.gz</code> (10 min).</li>
+<li>The program landscape — GUI, batch programs, super-scripts, SUMA (5 min).</li>
+<li><strong>Hands-on</strong> — SSH in, inspect real FT datasets with <code>3dinfo</code> (10 min).</li>
+<li>Checkpoints (5 min).</li>
+</ol>
+<hr />
+<h2 id="what-afni-is-and-who-made-it">What AFNI is (and who made it)<a class="headerlink" href="#what-afni-is-and-who-made-it" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Written by <strong>Bob Cox</strong>, SSCC/NIMH, starting in <strong>1994</strong>. Still in active development.</li>
+<li><strong>AFNI</strong> is both:<ul>
+<li>A <strong>GUI program</strong> (literally the executable named <code>afni</code>) for looking at brain data.</li>
+<li>The <strong>whole package</strong> — 750+ command-line programs written in C, Python, tcsh, and R.</li>
+</ul>
+</li>
+<li>Free, open source (GPL-2), lives on <a href="https://github.com/afni/AFNI">GitHub</a>.</li>
+</ul>
+<p>Design principles that matter for how the rest of this course feels:</p>
+<ul>
+<li><strong>Stay close to the data.</strong> Every intermediate can be inspected — there are no opaque binary blobs.</li>
+<li><strong>Mechanism, not policy.</strong> AFNI gives you sharp tools; it doesn't hide defaults from you.</li>
+<li><strong>Educate the user.</strong> This is why the bootcamp exists at all — Bob's position is that handing you a one-click pipeline without explaining it is malpractice.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Compare with FSL / SPM / MRtrix</p>
+<p>FSL and SPM are more opinionated — more "here is <em>the</em> way." AFNI's stance is "here are the pieces, we'll show you three ways to assemble them, you pick." This is why people say AFNI has a steeper initial curve. The bootcamp is the cost of that philosophy.</p>
+</div>
+<hr />
+<h2 id="fmri-in-five-minutes">FMRI in five minutes<a class="headerlink" href="#fmri-in-five-minutes" title="Permanent link">&para;</a></h2>
+<p>You know the gist from your RSA work, but let's nail the vocabulary we'll use for the rest of the week.</p>
+<p><strong>BOLD signal</strong> (Blood Oxygen Level Dependent):</p>
+<ul>
+<li><strong>1991</strong> (Kwong et al.): MRI-measurable signal increases by a few percent <em>locally</em> a few seconds after neurons in that region fire more.</li>
+<li>The mechanism is indirect: active neurons → increased local blood flow → <em>more</em> oxygenated hemoglobin relative to deoxy → different magnetic susceptibility → measurable signal change.</li>
+<li>Crucial: we're measuring <strong>hemodynamics</strong>, not neurons. Anything that changes blood flow (caffeine, breathing, heart rate, vascular anatomy) shows up in the signal.</li>
+</ul>
+<p><strong>The hemodynamic response function (HRF)</strong> — internalize this shape, it shows up everywhere:</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Duration (approx)</th>
+<th>What's happening</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A — pre-activation baseline</td>
+<td>—</td>
+<td>resting signal</td>
+</tr>
+<tr>
+<td>B — neural activity</td>
+<td>~20 s in the example</td>
+<td>stimulus is "on"</td>
+</tr>
+<tr>
+<td>C — delay</td>
+<td>~2 s</td>
+<td>vascular response lags neural firing</td>
+</tr>
+<tr>
+<td>D — rise</td>
+<td>~15 s</td>
+<td>BOLD climbs</td>
+</tr>
+<tr>
+<td>E — plateau</td>
+<td>~5 s</td>
+<td>near peak</td>
+</tr>
+<tr>
+<td>F — fall</td>
+<td>~15 s</td>
+<td>return toward baseline</td>
+</tr>
+<tr>
+<td>G — post-stimulus undershoot</td>
+<td>variable</td>
+<td>BOLD dips below baseline before recovering</td>
+</tr>
+</tbody>
+</table>
+<p>The full transient lasts ~30 seconds for a brief stimulus. This is why FMRI designs have long "blocks" or spaced events — you need the signal time to rise and fall.</p>
+<p><strong>Pattern-matching in time.</strong> Once you accept the HRF shape, the whole of task FMRI is:</p>
 <blockquote>
-<p>"How do I open a brain dataset in AFNI and actually look at it?"</p>
+<p>Convolve your stimulus timeseries with a canonical HRF. That's your predicted BOLD. Now for every voxel in the brain, ask: how well does the voxel's measured timeseries match this predicted timeseries?</p>
 </blockquote>
-<h2 id="planned-sections-to-be-filled-in-during-session-1">Planned sections (to be filled in during Session 1)<a class="headerlink" href="#planned-sections-to-be-filled-in-during-session-1" title="Permanent link">&para;</a></h2>
+<p>Every voxel gets a regression coefficient ("beta") and a t-stat. Activation maps are thresholded t-stat maps. That's it — everything in regression land is a variation on this theme.</p>
+<div class="admonition note">
+<p class="admonition-title">Compare with DTI</p>
+<p>In DTI you fit a tensor at each voxel from a <em>spatial</em> sampling of directions. In task FMRI you fit a linear model at each voxel from a <em>temporal</em> sampling of volumes. Different variable being the "repeated measure" (gradient direction vs. TR), same underlying massively-univariate spirit.</p>
+</div>
+<p><strong>Typical experiment scale:</strong></p>
 <ul>
-<li>What AFNI actually is — and how it compares to FSL / SPM</li>
-<li>The BRIK / HEAD format (short recap — full treatment in <a href="../../setup/file-formats/">file formats</a>)</li>
-<li>Launching <code>afni</code> — the three yoked viewer windows (axial / sagittal / coronal)</li>
-<li>Underlay vs. Overlay — the mental model that trips everyone up</li>
-<li>Threshold + colorbar — statistical map visualization</li>
-<li>"Define Datamode" panel, session directory, switching datasets</li>
-<li>Hands-on: load <code>FT_anat</code> + <code>FT_epi_r1</code> from <code>AFNI_data6</code>, adjust threshold, save a snapshot</li>
+<li>~500 volumes per run (at TR ≈ 2 s → 15-20 min of scanning).</li>
+<li>Multiple runs per subject — gives scanner + subject a break, and gives you independent estimates.</li>
+<li>Signal changes due to neural activity are <strong>small</strong> (a few percent). The battle is signal vs. physiological noise, head motion, scanner drift.</li>
 </ul>
+<p>The Cox quote from the PDF: <em>"Be vigilant."</em> Non-optional.</p>
+<hr />
+<h2 id="the-afni-data-model-the-core-of-this-lecture">The AFNI data model — the core of this lecture<a class="headerlink" href="#the-afni-data-model-the-core-of-this-lecture" title="Permanent link">&para;</a></h2>
+<p>Here's where we slow down. These four terms are the entire conceptual load:</p>
+<h3 id="dataset">Dataset<a class="headerlink" href="#dataset" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>The basic unit of data in AFNI. <strong>A collection of one or more 3D arrays of numbers</strong>, with auxiliary metadata, treated as one logical object.</p>
+</blockquote>
+<p>A dataset can be:</p>
+<ul>
+<li>An <strong>image dataset</strong> — voxel values are scanner intensities (anatomicals, EPI timepoints).</li>
+<li>A <strong>derived dataset</strong> — voxel values are computed from other datasets (t-stats, betas, masks, ROIs).</li>
+</ul>
+<p>Key idea: derived datasets are first-class. A stats map from <code>3dDeconvolve</code> isn't a "result file," it's a dataset, with the same structure and the same tools operating on it.</p>
+<h3 id="voxel">Voxel<a class="headerlink" href="#voxel" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>A 3D pixel. One number per voxel per sub-brick.</p>
+</blockquote>
+<p>Obvious but worth naming — neuroimaging-wide vocabulary.</p>
+<h3 id="sub-brick">Sub-brick<a class="headerlink" href="#sub-brick" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Each 3D array inside a dataset is a <strong>sub-brick</strong>. The dataset is the stack; each sub-brick is one slab of the stack.</p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>dataset  =  [ sub-brick 0,  sub-brick 1,  sub-brick 2,  ...,  sub-brick N-1 ]
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                 ↑
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>             each one is a full 3D volume:  (x, y, z) voxel grid
+</span></code></pre></div>
+<p>Indexed from 0. Referenced in the shell as <code>dataset+view'[3]'</code> — single-quote the brackets so the shell leaves them alone.</p>
+<p><strong>What sub-bricks represent depends on the dataset type:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Dataset type</th>
+<th>What a sub-brick is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EPI timeseries (<code>3D+time</code>)</td>
+<td>One volume = one TR (timepoint)</td>
+</tr>
+<tr>
+<td>Anatomical</td>
+<td>Usually 1 sub-brick (one structural volume)</td>
+</tr>
+<tr>
+<td><code>3dDeconvolve</code> stats output</td>
+<td>A statistical quantity: <code>Coef</code>, <code>Tstat</code>, <code>Fstat</code>, <code>R^2</code>, ... each has its own sub-brick</td>
+</tr>
+<tr>
+<td>Mask / ROI</td>
+<td>Usually 1 sub-brick of integer labels</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Why this matters</p>
+<p>AFNI doesn't have "separate files for the beta map and the t-map." They're sub-bricks of one <code>stats.*+tlrc</code> dataset, with labels. This is why you'll see <code>stats.FT+tlrc'[Vrel#0_Coef]'</code> — pull a specific <em>named</em> sub-brick. Much less bookkeeping than file-per-quantity workflows.</p>
+</div>
+<h3 id="header">Header<a class="headerlink" href="#header" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>All the auxiliary information about the dataset: voxel size, orientation, origin in scanner coordinates, time between sub-bricks (for 3D+time), statistical parameters per sub-brick, and a lot more.</p>
+</blockquote>
+<p>The header is not optional decoration — it's what makes the voxel values <em>mean</em> something. Two datasets with identical numbers but different orientation headers will render in different parts of space.</p>
+<p>Critical header fields you'll interact with constantly:</p>
+<ul>
+<li><strong>xyz voxel dimensions</strong> (in mm).</li>
+<li><strong>Orientation</strong>, encoded as a 3-letter code. <code>RAI</code> = first axis goes <strong>R</strong>ight-to-Left, second <strong>A</strong>nterior-to-Posterior, third <strong>I</strong>nferior-to-Superior — i.e. axial slicing. Our sample EPI is RAI; our sample anatomical is <code>ASL</code> (A-P, S-I, L-R — sagittal slicing).</li>
+<li><strong>Location in scanner coordinates</strong> — the real-world origin. Needed for any kind of overlay.</li>
+<li><strong>TR</strong> — time between sub-bricks, only meaningful for <code>3D+time</code> datasets.</li>
+<li><strong>Sub-brick labels</strong> — e.g. <code>Vrel#0_Coef</code>, <code>Full_Fstat</code>.</li>
+<li><strong>Stat parameters per sub-brick</strong> — e.g. a t-stat sub-brick stores its degrees of freedom so you don't have to remember them later. <code>3dinfo</code> will print them out.</li>
+</ul>
+<hr />
+<h2 id="file-formats-on-disk">File formats on disk<a class="headerlink" href="#file-formats-on-disk" title="Permanent link">&para;</a></h2>
+<h3 id="brik-head-the-afni-native-format">BRIK + HEAD (the AFNI native format)<a class="headerlink" href="#brik-head-the-afni-native-format" title="Permanent link">&para;</a></h3>
+<p>Every native AFNI dataset is <strong>two files</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>FT_anat+orig.HEAD       ← ASCII metadata
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>FT_anat+orig.BRIK       ← raw voxel data (often .BRIK.gz if compressed)
+</span></code></pre></div>
+<p>Both travel together. Losing one orphans the other.</p>
+<h3 id="views">Views<a class="headerlink" href="#views" title="Permanent link">&para;</a></h3>
+<p>A dataset lives in one of two <strong>views</strong> (coordinate systems), tagged in the filename:</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+orig</code></td>
+<td>Original scanner space</td>
+</tr>
+<tr>
+<td><code>+tlrc</code></td>
+<td>Aligned to a standard template (Talairach, MNI, ...). The header records which template.</td>
+</tr>
+</tbody>
+</table>
+<p>(<code>+acpc</code> used to be a third view — dataset rotated so the AC-PC line is horizontal. It's deprecated; everyone goes straight from <code>+orig</code> to <code>+tlrc</code> now.)</p>
+<h3 id="filenames">Filenames<a class="headerlink" href="#filenames" title="Permanent link">&para;</a></h3>
+<p>AFNI filenames are three parts:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>prefix   +   view   .   suffix
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>──────       ────       ──────
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>FT_anat    +orig      .HEAD
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>stats.FT   +tlrc      .BRIK.gz
+</span></code></pre></div>
+<p>When you run any AFNI program that creates a dataset, you give the <strong>prefix</strong> (<code>-prefix foo</code>) and AFNI fills in the view and writes both the <code>.HEAD</code> and <code>.BRIK</code> / <code>.BRIK.gz</code>.</p>
+<h3 id="nifti">NIfTI<a class="headerlink" href="#nifti" title="Permanent link">&para;</a></h3>
+<p>AFNI reads and writes NIfTI-1 (<code>.nii</code> / <code>.nii.gz</code>) transparently. To write NIfTI instead of BRIK/HEAD, just end your prefix in <code>.nii</code> or <code>.nii.gz</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>3dcalc<span class="w"> </span>-a<span class="w"> </span>FT_anat+orig<span class="w"> </span>-expr<span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w"> </span>-prefix<span class="w"> </span>anat_copy.nii.gz<span class="w">   </span><span class="c1"># writes NIfTI</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>3dcalc<span class="w"> </span>-a<span class="w"> </span>FT_anat+orig<span class="w"> </span>-expr<span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w"> </span>-prefix<span class="w"> </span>anat_copy<span class="w">          </span><span class="c1"># writes anat_copy+orig.HEAD/.BRIK</span>
+</span></code></pre></div>
+<p>One thing to know: the NIfTI spec's header can't cleanly represent per-slice timing in all cases. Tools like <code>dcm2niix_afni</code> sometimes lose this information on conversion. Fix: after conversion, use <code>3drefit -Tslices ...</code> to add it back (AFNI uses a NIfTI extension to store this). More in Lecture 5 when we get to alignment.</p>
+<div class="admonition tip">
+<p class="admonition-title">When to use which format</p>
+<p>Stay in BRIK/HEAD while you're inside an AFNI pipeline — richer per-sub-brick metadata (labels, stat params). Export to NIfTI when handing datasets off to FSL, SPM, Python (<code>nibabel</code>), or sharing publicly.</p>
+</div>
+<h3 id="other-formats-afni-can-ingest">Other formats AFNI can ingest<a class="headerlink" href="#other-formats-afni-can-ingest" title="Permanent link">&para;</a></h3>
+<p>ANALYZE 7.5 (<code>.hdr</code> / <code>.img</code>), MINC-1 (<code>.mnc</code>), CTF MEG (<code>.mri</code>, <code>.svl</code>), and ASCII (<code>.1D</code>, for timeseries and 1D text tables — you'll see these for stim timing files).</p>
+<hr />
+<h2 id="from-dicom-to-afni-dataset">From DICOM to AFNI dataset<a class="headerlink" href="#from-dicom-to-afni-dataset" title="Permanent link">&para;</a></h2>
+<p>You won't do this much in this course (we have preprocessed data), but worth knowing the shape:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Dimon</code></td>
+<td>Rick Reynolds' program; originally for realtime FMRI, also does offline DICOM → AFNI conversion. Strong with Siemens/GE stock.</td>
+</tr>
+<tr>
+<td><code>dcm2niix_afni</code></td>
+<td>Chris Rorden's converter, vendored into AFNI. Handles more DICOM variants than <code>Dimon</code>. Writes NIfTI.</td>
+</tr>
+<tr>
+<td><code>3drefit</code></td>
+<td>Edit a dataset's header in place. Used to patch slice-timing info that <code>dcm2niix_afni</code> couldn't preserve.</td>
+</tr>
+</tbody>
+</table>
+<p>Rule of thumb: start with <code>dcm2niix_afni</code>, check the output with <code>3dinfo</code>, and use <code>3drefit</code> if anything is missing or wrong.</p>
+<hr />
+<h2 id="the-afni-program-landscape-orientation">The AFNI program landscape (orientation)<a class="headerlink" href="#the-afni-program-landscape-orientation" title="Permanent link">&para;</a></h2>
+<p>You interact with AFNI in three modes:</p>
+<ol>
+<li><strong>The GUI</strong> (<code>afni</code>) — interactive viewer. We'll use this a lot in Lecture 4.</li>
+<li><strong>Batch programs</strong> — one-shot command-line tools. These are where all the real work happens. Names follow a pattern: programs starting with <code>3d</code> act on 3D datasets (<code>3dinfo</code>, <code>3dDeconvolve</code>, <code>3dvolreg</code>, <code>3dcalc</code>, <code>3dSkullStrip</code>, ...). You'll memorize ~15-20 of them over the week.</li>
+<li><strong>Super-scripts</strong> — Python wrappers that chain many <code>3d*</code> programs into standard pipelines. You'll mostly use two:<ul>
+<li><strong><code>afni_proc.py</code></strong> — end-to-end single-subject preprocessing + first-level GLM.</li>
+<li><strong><code>align_epi_anat.py</code></strong> — EPI ↔ anatomical co-registration.</li>
+</ul>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Danny — this is the analog of your DTI workflow</p>
+<p>Your DTI pipeline was probably a shell script of <code>dwidenoise</code>, <code>dwifslpreproc</code>, <code>dwibiascorrect</code>, <code>dwi2tensor</code>, <code>tckgen</code>, ... That's the same pattern. <code>afni_proc.py</code> is the equivalent wrapper — each flag maps to a specific <code>3d*</code> call, and the script writes the full <code>proc.subj.*</code> tcsh file so you can inspect and edit it. We'll read one in Lecture 3.</p>
+</div>
+<p><strong>SUMA</strong> deserves a mention: it's the AFNI <em>surface</em> viewer. It renders cortical surface meshes (imported from FreeSurfer / BrainVoyager / Caret) and can "talk" to an open <code>afni</code> GUI session so that clicking in one jumps the other. We won't touch SUMA today but it's there.</p>
+<p><strong>AFNI Batch Programs (the starter set you'll learn this week):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Program</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>3dinfo</code></td>
+<td>Print a dataset's header. Your most-used command.</td>
+</tr>
+<tr>
+<td><code>3dDeconvolve</code></td>
+<td>Linear regression / GLM on 3D+time data.</td>
+</tr>
+<tr>
+<td><code>3dREMLfit</code></td>
+<td>Same GLM but with a better (ARMA) noise model. Runs after <code>3dDeconvolve</code>.</td>
+</tr>
+<tr>
+<td><code>3dvolreg</code></td>
+<td>Motion correction — register every sub-brick to a reference.</td>
+</tr>
+<tr>
+<td><code>3dcalc</code></td>
+<td>Voxel-wise calculator. <code>3dcalc -a X -b Y -expr 'a-b'</code> to subtract.</td>
+</tr>
+<tr>
+<td><code>3dresample</code></td>
+<td>Re-orient or re-grid a dataset.</td>
+</tr>
+<tr>
+<td><code>3dSkullStrip</code></td>
+<td>Strip skull from T1.</td>
+</tr>
+<tr>
+<td><code>3dANOVA</code> / <code>3dLME</code> / <code>3dLMEr</code></td>
+<td>Group-level mixed-effects.</td>
+</tr>
+<tr>
+<td><code>3dDWItoDT</code></td>
+<td>DTI tensor fit — AFNI's DTI toolbox (Bob had a DTI phase).</td>
+</tr>
+<tr>
+<td><code>3dsvm</code></td>
+<td>SVM-based MVPA.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="hands-on-look-at-real-data-with-3dinfo">Hands-on — look at real data with <code>3dinfo</code><a class="headerlink" href="#hands-on-look-at-real-data-with-3dinfo" title="Permanent link">&para;</a></h2>
+<p>Everything up to here has been abstract. Now we actually put hands on the FT dataset. You'll SSH into the cluster, look at a raw EPI and a raw anatomical, and make the concepts concrete.</p>
+<h3 id="1-connect">1. Connect<a class="headerlink" href="#1-connect" title="Permanent link">&para;</a></h3>
+<p>From your Mac terminal (Temple VPN connected):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>expect<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="s1">spawn ssh -o StrictHostKeyChecking=no tur50045@155.247.67.31</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="s1">expect &quot;password:&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s1">send &quot;Milolab123!\r&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s1">interact</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="s1">&#39;</span>
+</span></code></pre></div>
+<p>Once inside, confirm AFNI is on <code>PATH</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>afni<span class="w"> </span>-ver
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Precompiled binary linux_ubuntu_16_64: May 23 2025 (Version AFNI_25.1.11 &#39;Maximinus&#39;)</span>
+</span></code></pre></div>
+<p>If that errors, <code>source ~/.bashrc</code> and try again.</p>
+<h3 id="2-walk-to-the-ft-dataset">2. Walk to the FT dataset<a class="headerlink" href="#2-walk-to-the-ft-dataset" title="Permanent link">&para;</a></h3>
+<p>The "FT" subject is the canonical example throughout the AFNI bootcamp. Two runs of a visual/auditory paradigm ("visual reliable" vs "audio reliable"), standard T1.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>/data/AFNIBootcamp_2025/CD/AFNI_data6/FT_analysis/FT
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ls<span class="w"> </span>*.HEAD
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># FT_anat+orig.HEAD  FT_epi_r1+orig.HEAD  FT_epi_r2+orig.HEAD  FT_epi_r3+orig.HEAD</span>
+</span></code></pre></div>
+<p>Four datasets: one anatomical, three EPI runs. Each has a matching <code>.BRIK</code> right next to the <code>.HEAD</code> (or <code>.BRIK.gz</code>).</p>
+<h3 id="3-inspect-the-anatomical">3. Inspect the anatomical<a class="headerlink" href="#3-inspect-the-anatomical" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>3dinfo<span class="w"> </span>-verb<span class="w"> </span>FT_anat+orig<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+</span></code></pre></div>
+<p>What to notice in the output:</p>
+<ul>
+<li><code>Dataset Type: Anat Bucket (-abuc)</code> — AFNI knows this is an anatomical.</li>
+<li><code>Data Axes Orientation: [-orient ASL]</code> — Anterior-to-Posterior / Superior-to-Inferior / Left-to-Right. <strong>Not RAI.</strong> Real datasets come in whatever orientation the scanner sat in.</li>
+<li>Voxel grid: <code>256 × 256 × 175</code>, step <code>0.938 × 0.938 × 1.000 mm</code> — high-res isotropic-ish T1.</li>
+<li><code>Number of values stored at each pixel = 1</code> — <strong>one sub-brick.</strong> A plain anatomical is a single 3D volume.</li>
+</ul>
+<h3 id="4-inspect-the-epi">4. Inspect the EPI<a class="headerlink" href="#4-inspect-the-epi" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>3dinfo<span class="w"> </span>-verb<span class="w"> </span>FT_epi_r1+orig<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-25
+</span></code></pre></div>
+<p>Compare against the anat:</p>
+<ul>
+<li><code>Dataset Type: Echo Planar (-epan)</code>.</li>
+<li><code>80 × 80 × 33</code> voxels, <code>2.75 × 2.75 × 3.0 mm</code> — much coarser, because we're trading spatial resolution for speed (TR = 2 s).</li>
+<li><code>-orient RAI</code> — different from the anat, as promised. Alignment (Lecture 5) exists precisely to reconcile these.</li>
+<li><code>Number of time steps = 152  Time step = 2.00000s</code> — <strong>this dataset has 152 sub-bricks, one per TR.</strong> Scroll the 3dinfo output and you'll see them enumerated: <code>sub-brick #0</code>, <code>#1</code>, ..., <code>#151</code>. Each is a full 3D volume.</li>
+</ul>
+<h3 id="5-pull-a-single-sub-brick">5. Pull a single sub-brick<a class="headerlink" href="#5-pull-a-single-sub-brick" title="Permanent link">&para;</a></h3>
+<p>You can extract one timepoint without copying the whole file. The selector syntax is <code>name+view'[index]'</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>3dinfo<span class="w"> </span>-nv<span class="w">  </span>FT_epi_r1+orig<span class="w">          </span><span class="c1"># just the number of sub-bricks</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>3dinfo<span class="w"> </span>-tr<span class="w">  </span>FT_epi_r1+orig<span class="w">          </span><span class="c1"># just the TR</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>3dBrickStat<span class="w"> </span>-mean<span class="w">  </span>FT_epi_r1+orig<span class="s1">&#39;[0]&#39;</span><span class="w">    </span><span class="c1"># mean intensity of the first volume</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>3dBrickStat<span class="w"> </span>-mean<span class="w">  </span>FT_epi_r1+orig<span class="s1">&#39;[75]&#39;</span><span class="w">   </span><span class="c1"># mean of volume 75</span>
+</span></code></pre></div>
+<p>Notice the single quotes around <code>[0]</code> — that's shielding the brackets from the shell. If you forget, you'll get a glob error.</p>
+<h3 id="6-peek-at-the-head-file">6. Peek at the HEAD file<a class="headerlink" href="#6-peek-at-the-head-file" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>head<span class="w"> </span>-40<span class="w"> </span>FT_anat+orig.HEAD
+</span></code></pre></div>
+<p>It's ASCII — literal key/value attribute records. You can read it. You generally shouldn't edit it by hand (use <code>3drefit</code>), but you can tell how much AFNI is keeping.</p>
+<hr />
+<h2 id="checkpoint-questions">Checkpoint questions<a class="headerlink" href="#checkpoint-questions" title="Permanent link">&para;</a></h2>
+<p>Answer these without scrolling back:</p>
+<ol>
+<li>
+<p><strong>What two files make up an AFNI dataset, and what lives in each?</strong></p>
+<details class="answer">
+<summary>Show answer</summary>
+<p><code>.HEAD</code> = ASCII metadata (orientation, voxel size, origin, sub-brick labels, stat params). <code>.BRIK</code> (or <code>.BRIK.gz</code>) = raw voxel numbers for all sub-bricks. Both travel together.</p>
+</details>
+</li>
+<li>
+<p><strong>A <code>3dDeconvolve</code> output dataset called <code>stats.FT+tlrc</code> has 80 sub-bricks. What might those sub-bricks be, and why would AFNI bundle them in one dataset?</strong></p>
+<details class="answer">
+<summary>Show answer</summary>
+<p>Each stimulus condition gets (at minimum) a <code>Coef</code> sub-brick (the beta) and a <code>Tstat</code> sub-brick. With multiple conditions, multiple basis functions per condition, a full-F, and several contrasts (<code>GLT</code>s), you quickly get into the dozens. Bundling them in one dataset with labels beats juggling dozens of separate files — same grid, same mask, same provenance.</p>
+</details>
+</li>
+<li>
+<p><strong>You run <code>ls</code> and see <code>FT_anat+orig.HEAD</code> but no <code>.BRIK</code>. What do you do?</strong></p>
+<details class="answer">
+<summary>Show answer</summary>
+<p>Don't touch the HEAD file — it's metadata only. The BRIK is either (a) compressed as <code>.BRIK.gz</code> (check with <code>ls *.BRIK*</code>) or (b) actually missing, in which case the dataset is broken and you need to recover the BRIK from backup.</p>
+</details>
+</li>
+<li>
+<p><strong>Danny-specific: you do RSA on first-level betas. In AFNI, where do those betas come from, and how would you subset them?</strong></p>
+<details class="answer">
+<summary>Show answer</summary>
+<p>They're <code>Coef</code> sub-bricks of the <code>stats.*+tlrc</code> dataset produced by <code>3dDeconvolve</code>. To subset, use label-based indexing: <code>stats.FT+tlrc'[Vrel#0_Coef]'</code> or find the numeric index with <code>3dinfo -label2index Vrel#0_Coef stats.FT+tlrc</code>. For a bucket of betas across conditions for RSA, write a tiny shell loop extracting each with <code>3dbucket -prefix betas_for_rsa ...</code>.</p>
+</details>
+</li>
+<li>
+<p><strong>Why does AFNI store sub-brick labels and stat parameters in the header instead of a sidecar file?</strong></p>
+<details class="answer">
+<summary>Show answer</summary>
+<p>So the dataset is self-describing — move it to another machine, hand it to a collaborator, come back to it in three years, and <code>3dinfo</code> still tells you what each number means. Sidecars go missing; headers don't. This is the "stay close to the data" principle in action.</p>
+</details>
+</li>
+</ol>
+<hr />
 <h2 id="exit-criteria">Exit criteria<a class="headerlink" href="#exit-criteria" title="Permanent link">&para;</a></h2>
-<p>By the end of this lecture you should be able to, without looking things up:</p>
+<p>Before moving to Lecture 2, you should be able to:</p>
 <ul>
-<li>Open AFNI and load any dataset</li>
-<li>Explain the underlay/overlay distinction in one sentence</li>
-<li>Adjust a statistical threshold and colorbar</li>
-<li>Save a snapshot of the current view</li>
+<li>[x] Explain — in one paragraph, no notes — what a dataset / voxel / sub-brick / header are and how they relate.</li>
+<li>[x] Read a <code>3dinfo</code> output and identify: orientation, voxel dimensions, TR (if 3D+time), number of sub-bricks.</li>
+<li>[x] Reference a specific sub-brick at the shell with <code>'[index]'</code> syntax.</li>
+<li>[x] Explain why BRIK/HEAD is two files and why losing one orphans the other.</li>
+<li>[x] Tell someone the difference between <code>+orig</code> and <code>+tlrc</code>.</li>
+<li>[x] Name at least five AFNI <code>3d*</code> programs and what they do.</li>
 </ul>
+<p>Got all six? Onward to <a href="../02-regression-part1/">Lecture 2 — Regression, Part 1</a>.</p>
 
 
 
