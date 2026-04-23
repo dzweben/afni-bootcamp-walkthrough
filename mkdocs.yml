@@ -69,7 +69,7 @@ nav:
       - AFNI file formats: setup/file-formats.md
   - Day 1:
       - Overview: day1/index.md
-      - 1. AFNI GUI — Part 1: day1/01-gui-part1.md
+      - 1. Intro to AFNI + FMRI data: day1/01-gui-part1.md
       - 2. Regression — Part 1: day1/02-regression-part1.md
       - 3. Regression — Part 2: day1/03-regression-part2.md
       - 4. AFNI GUI — Part 2: day1/04-gui-part2.md

@@ -20,7 +20,7 @@ The official NIMH AFNI Bootcamp is excellent, but the videos are long and the PD
 
 | # | Lecture | Official PDF | Status |
 |---|---------|--------------|--------|
-| 1 | AFNI GUI — Part 1 | [afni01_intro.pdf](https://afni.nimh.nih.gov/pub/dist/edu/data/CD.expanded/afni_handouts/afni01_intro.pdf) | In progress |
+| 1 | Intro to AFNI + FMRI data | [afni01_intro.pdf](https://afni.nimh.nih.gov/pub/dist/edu/data/CD.expanded/afni_handouts/afni01_intro.pdf) | ✅ Complete |
 | 2 | Regression — Part 1 | [afni05_regression.pdf](https://afni.nimh.nih.gov/pub/dist/edu/data/CD.expanded/afni_handouts/afni05_regression.pdf) | Pending |
 | 3 | Regression — Part 2 | [RegressionHandsOn.pdf](https://afni.nimh.nih.gov/pub/dist/edu/data/CD.expanded/afni_handouts/RegressionHandsOn.pdf) | Pending |
 | 4 | AFNI GUI — Part 2 | [afni03_interactive.pdf](https://afni.nimh.nih.gov/pub/dist/edu/data/CD.expanded/afni_handouts/afni03_interactive.pdf) | Pending |

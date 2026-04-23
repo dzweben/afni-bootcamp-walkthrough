@@ -10,7 +10,7 @@ Day 1 of the NIMH AFNI Bootcamp covers four large ideas, split across five lectu
 
 | # | Lecture | Core question it answers |
 |---|---------|--------------------------|
-| 1 | [AFNI GUI — Part 1](01-gui-part1.md) | "How do I open my data and look at it?" |
+| 1 | [Intro to AFNI + FMRI data](01-gui-part1.md) | "What is AFNI actually organizing, and why in the shape it uses?" |
 | 2 | [Regression — Part 1](02-regression-part1.md) | "What does `3dDeconvolve` actually compute, and why that way?" |
 | 3 | [Regression — Part 2](03-regression-part2.md) | "How do I fit a real model to real data, end to end?" |
 | 4 | [AFNI GUI — Part 2](04-gui-part2.md) | "Now that I have stats maps, how do I explore them interactively?" |
