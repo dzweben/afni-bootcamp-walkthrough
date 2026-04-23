@@ -62,76 +62,219 @@ So: a stimulus that lasts 20 seconds produces a BOLD response that takes ~30 sec
 
 ---
 
-## From a stimulus to a predicted BOLD signal — what "convolve" means
+## What is this whole pipeline *for*?
 
-Here's the puzzle. You design an experiment where, say, a checkerboard flickers on for 20 s, rests for 20 s, flickers for 20 s, etc. That stimulus timeline is a simple on/off square wave:
+Zoom out. Before getting into the arithmetic of convolution or regression, you need to know why any of it exists. Here's the full picture.
 
-```
-stimulus:   ▁▁▁▁▁▁▁▁▁▁▁███████████████████▁▁▁▁▁▁▁▁▁▁███████████████████▁▁▁▁▁▁▁▁▁
-time →      0         20 s                40                 60                80
-```
+### What task fMRI studies actually try to answer
 
-But as we just said, the BOLD signal is slow. The *measured* BOLD in visual cortex isn't going to be a square wave — it'll rise gradually when the stimulus starts and fall gradually when it ends, shaped by the HRF.
+Real research questions look like:
 
-So: given your on/off stimulus and the HRF shape, what does the *predicted* BOLD signal look like?
+- **Where** in the brain does face processing happen? (localize a function)
+- **Do patients** with depression activate amygdala more than controls during threat? (group difference)
+- **Does anxiety score** predict activation strength in a particular region? (correlation with a continuous trait)
+- **Did** prefrontal activation during a memory task change after a training intervention? (within-subject, across sessions)
+- **Is** activation during hard math problems *different from* activation during easy ones? (within-subject contrast)
 
-The answer is: the predicted BOLD is the stimulus timeline **convolved** with the HRF.
+Every one of those questions ultimately gets answered *across subjects*, with group-level statistics. But every one of them needs, as an input: per subject, per voxel, per condition, **a single number that says how strongly that voxel responded to that condition in that subject**.
 
-### Convolution, concretely
+That single number is what the HRF + convolution + regression pipeline produces. It's called **β**. Everything that comes later — group maps, between-group tests, correlations with behavior, within-subject changes over time — operates on those β numbers.
 
-Convolution sounds like jargon; the idea is simple. Think of striking a bell.
+So the job of the whole subject-level pipeline is narrow: **take each voxel's noisy 152-timepoint signal, per condition, and reduce it to one summary number (β) and an uncertainty (SE, t).**
 
-- One strike → the bell rings with a fixed decaying "shape" over a few seconds.
-- Strike it twice, half a second apart → while the first strike's ring is still decaying, the second strike adds a new ring on top. The sound you hear is the *sum* of both rings at each moment.
-- Strike it 20 times in a row → you're hearing a rich overlap of 20 rings, each delayed from its strike, all summing up over time.
+### Why we build a *predicted* BOLD at all
 
-That process — at every instant, sum up the contributions from each past "strike," each delayed and shaped by a fixed response function — **is convolution.**
+To boil down a voxel's timeseries to "how much did it respond," we need to compare what it actually did to what it *should have done* if it were responsive. If the two look similar, the voxel is responsive. If not, it isn't.
 
-In fMRI:
+What a responsive voxel should have done depends on two things:
 
-- "Strikes" = the stimulus timeline (the 1s in the on/off square wave, or the event onsets)
-- "Ring shape" = the HRF
-- "Sound you hear" = the predicted BOLD signal in a voxel that responds to this stimulus
+1. **The experiment you ran** — when each condition was on, when each event happened.
+2. **The physiology of BOLD** — blood flow takes seconds to respond and tens of seconds to clear. The signal is a smeared-out, delayed echo of the underlying neural activity.
 
-When the stimulus is a long block (20 s of "on"), the convolved BOLD doesn't look like a square wave — it looks like a ramp up, a rounded plateau, a ramp down, and maybe an undershoot. That's the HRF shape smoothed out over the block.
+If you just compared the voxel to your stimulus timeline directly (a 20-s-on / 20-s-off square wave), the match would be poor *even for genuinely responsive voxels* — because the actual BOLD signal doesn't look like a square wave. It looks like a rounded, delayed, smeared thing. The square-wave predictor has the wrong shape.
 
-!!! note "This is why fMRI experiments don't pack stimuli too tight"
-    If events are less than ~6 seconds apart, their HRF responses overlap heavily and the regression has a hard time telling them apart. Event-related designs carefully space events; block designs embrace the overlap by keeping long, homogeneous blocks.
+What you want is a predictor that has the *right* shape for what BOLD actually does. You get that by taking your stimulus timeline and running it through the HRF — i.e., computing what BOLD *would* look like in a voxel that cared about this stimulus, given how slow and smeared BOLD is.
+
+That's the entire point of HRF convolution: **build a per-subject, per-condition predicted BOLD timeseries that has the right shape to match what responsive voxels would actually produce**, so that a regression against it can recover a meaningful amplitude β.
+
+Without HRF convolution, the regression would systematically underestimate β at responsive voxels (square-wave predictor vs. rounded signal = poor fit = small estimated amplitude) and you'd miss most of your real activation.
+
+### The three stages of a task fMRI analysis
+
+This is the skeleton underneath *every* task fMRI study:
+
+**Stage 1 — Subject-level fit.** For each subject, at each voxel, regress the measured BOLD against HRF-convolved predictors (one per condition) plus nuisance regressors. Output: β maps and t maps, per condition, per subject. **This is the only stage where the HRF enters.** AFNI's `3dDeconvolve` does this.
+
+**Stage 2 — Subject-level contrasts (optional).** Within each subject, combine condition βs into contrasts — e.g. β(faces) − β(houses), or β(hard) − β(easy). Still one number per voxel per subject, now representing a difference between conditions. `3dDeconvolve` supports contrast specifications via `-gltsym`.
+
+**Stage 3 — Group analysis.** Feed Stage 1 βs (or Stage 2 contrasts) into a statistical test across subjects. This is where the actual research questions get answered:
+
+| Research question | Stage-3 test | AFNI tool |
+|---|---|---|
+| "Is this area reliably activated in the population?" | One-sample t-test on βs across subjects, per voxel | `3dttest++` |
+| "Do patients vs controls differ in activation?" | Two-sample t-test on βs | `3dttest++ -setA -setB` |
+| "Does anxiety score predict amygdala β?" | Voxelwise regression of βs on the trait | `3dttest++ -covariates`, `3dMVM` |
+| "Did activation change after training?" | Paired t-test on session-2 β − session-1 β | `3dttest++ -paired` |
+| "Interaction of condition × group × time?" | Mixed-effects model | `3dLME`, `3dLMEr` |
+
+**Stages 2 and 3 do not involve the HRF.** They operate on numbers (βs) that Stage 1 already produced. The HRF's entire job is at Stage 1, and its role is specifically to give the regression a correctly-shaped predictor so β is a clean estimate of amplitude.
+
+So to answer the question directly: **HRF is not only for "does this voxel activate, yes/no."** The β it helps produce is the raw material for *every* kind of task-fMRI question — group maps, between-group differences, individual-differences correlations, within-subject changes over time. But the HRF itself enters only at the subject-level regression. After that, the analyses are just arithmetic on β maps.
 
 ---
 
-## Finding activation — one voxel at a time
+## Convolution — the actual arithmetic
 
-Now the trick. We have, for each voxel:
+Now, with that purpose in hand, the mechanics of how Stage 1 builds its predicted BOLD.
 
-- The **measured** BOLD timeseries — noisy, drifting, contaminated by motion, physiology, scanner.
-- The **predicted** BOLD timeseries — the stimulus convolved with the HRF. Same length, same TR grid.
+### The assumption that makes it tractable
 
-At each voxel, we ask: *how well does the measured signal track the predicted signal?* If the match is good, this voxel cares about the stimulus. If the match is poor (or the voxel's timeseries is just noise), this voxel does not.
+Two empirical properties of the BOLD response:
 
-Mechanically, we fit a linear regression at each voxel:
+- **Linearity**: doubling a stimulus's intensity or duration roughly doubles the magnitude of the BOLD response.
+- **Additivity**: if two stimulus events happen close together, the BOLD response to both is (approximately) the sum of the individual responses — the HRFs each event triggers overlap and add.
 
-$$\text{measured}(t) \;=\; \beta \cdot \text{predicted}(t) \;+\; (\text{nuisance terms}) \;+\; \text{noise}(t)$$
+Together these are the **linear time-invariant (LTI) assumption**. Not exactly true — BOLD saturates at very short intervals or very intense stimulation — but close enough across normal experimental ranges.
 
-Two quantities drop out of that fit that you'll see everywhere:
+Under LTI, the predicted BOLD is a specific calculation on two timeseries.
 
-- **β (beta)** — the regression slope. How much of the predicted signal is present in this voxel. Big β = strong response to the stimulus.
-- **t-statistic** — β divided by its own standard error. It answers "is this β reliably different from zero, or is it probably noise?" High t = unlikely to be noise.
+### The setup
 
-An **activation map** is just: at every voxel, compute the t-statistic, then color the voxels whose t crosses some threshold. That colored map gets overlaid on an anatomical.
+Represent both the stimulus and the HRF as columns of numbers, sampled at the TR grid (every 2 seconds in the FT example):
 
-![Sample voxel timeseries from a somatosensory task. TR = 2.5 s, 130 timepoints. Red = predicted BOLD (convolved stimulus). Black = measured signal in this voxel. Blue = the model's fit to the black. From afni01_intro.pdf p. 6.](../assets/day1/sample-timeseries.png){ width=700 }
+```
+stimulus[0], stimulus[1], stimulus[2], ...    ← 1 if on at that TR, 0 if off
+                                                (or a continuous value for graded stimuli)
 
-Look at the image. The red curve is the predicted BOLD from a 27-s-on / 27-s-off somatosensory task — note how smooth and rounded it is, not a square wave. The black is what this particular voxel actually measured: noisy, but clearly tracking the red. The blue is the regression's best fit to the black using the red as a predictor. The fact that red and blue look similar is *why* we'd say this voxel is activated.
+hrf[0], hrf[1], hrf[2], ..., hrf[L-1]         ← the HRF shape, L values (~15 at TR=2s
+                                                since the HRF is ~30 s long)
+```
 
-### "Isn't this just checking if things are connected?"
+The HRF values start near 0, climb to a peak around `hrf[3]` (≈ 6 s post-event), fall back, dip slightly negative in the undershoot, and return to 0 by the end.
 
-Good instinct but no — this is a different question. Two common-but-distinct fMRI questions:
+### The computation
 
-- **Task activation** (what we just did) — compare a voxel's timeseries to an *externally specified predictor* (the convolved stimulus). Question: "does this voxel respond to my experimental manipulation?"
-- **Functional connectivity** — compare *two brain regions' timeseries to each other*. Question: "do these two regions fluctuate together?" Often done at rest (no task), and it's a whole separate world we won't touch on Day 1.
+The predicted BOLD at timepoint `k` is this sum:
 
-Everything we build through Lecture 3 is task activation. Connectivity comes later in the bootcamp.
+```
+predicted[k] =   stimulus[k]   * hrf[0]
+               + stimulus[k-1] * hrf[1]
+               + stimulus[k-2] * hrf[2]
+               + ...
+               + stimulus[k-(L-1)] * hrf[L-1]
+```
+
+In words: **at timepoint k, walk backward through the stimulus up to L TRs. Each past stimulus tick contributes its value times the HRF at the matching lag. Sum them all.**
+
+Do this for every `k` — the result is a new timeseries the same length as the input. That's the predicted BOLD.
+
+This specific arithmetic procedure — "at every output time, sum stimulus values times HRF-at-the-appropriate-lag over the HRF's duration" — is what **convolution** is. When a paper or docs page says "the stimulus is convolved with the HRF," this sum is the computation.
+
+### Why the predicted BOLD doesn't look like the stimulus
+
+Take a stimulus that's on for 20 seconds at TR = 2 s: stimulus values `[0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, ...]`. Walking through the procedure:
+
+- **First on-tick of the block.** Only the current tick contributes, weighted by `hrf[0]` ≈ 0. Predicted BOLD is barely above baseline.
+- **Two TRs in.** Two ticks contribute, both in the HRF's early rising portion. Predicted BOLD climbing.
+- **Mid-block.** Many ticks contribute. Earliest ones multiply near-peak HRF values; latest ones multiply still-climbing HRF values. Sum is large and still rising slowly.
+- **End of block.** Stimulus goes off (new ticks contribute 0), but the on-ticks from the block are still playing out — most near or past their peak. Predicted BOLD near plateau.
+- **5–10 s after block.** No new contributions, and the earlier ones are now past their peaks. Predicted BOLD falls.
+- **20–30 s after block.** Earliest on-ticks have entered the HRF's undershoot phase; their contributions are slightly negative. Predicted BOLD briefly dips below baseline.
+- **After that.** All contributions decayed. Back to baseline.
+
+The net shape is a rounded rise, rounded plateau, rounded fall, small undershoot — not a square wave. (You'll see this concretely in the red curve of the figure two sections down.)
+
+---
+
+## How the HRF shapes experimental design
+
+Because responses last ~30 seconds and overlap additively, two design choices are directly constrained by the HRF shape — before you ever scan a subject.
+
+### Event spacing
+
+If two stimulus events are less than ~4 seconds apart, their predicted BOLD timeseries are nearly indistinguishable after convolution — the regression can't separate event A's response from event B's. Reliable separation requires either:
+
+- At least ~5–6 seconds between events of *different* types (event-related design with jittered inter-stimulus intervals), or
+- Long homogeneous blocks (~20–30 s per condition) so the within-block overlap reaches a plateau you can compare across conditions (block design).
+
+### Block vs. event-related vs. mixed
+
+- **Block design.** Long periods of one condition alternating with long periods of another (e.g. 20 s faces / 20 s houses, repeating). The predicted BOLD reaches a near-plateau during each block. Pros: large, sustained signal — easy to fit, highly powered. Cons: only tells you about *condition-level* differences; you can't pull out responses to individual trials.
+- **Event-related design.** Brief stimuli (~1 s) in random order with varied inter-stimulus intervals. You need many more events per condition to build power, but you can ask about trial-to-trial variation, order effects, novelty, and event-specific responses.
+- **Mixed design.** Blocks of task vs. rest, with individual events inside task blocks. Lets you decompose sustained (block-level) and transient (event-level) effects in the same dataset.
+
+In every case: your design choice determines the stimulus timeline; the HRF-convolved version of that timeline is what Stage 1 compares against the measured signal at each voxel.
+
+---
+
+## Fitting Stage 1 at each voxel — β, SE, t
+
+At each voxel you have two timeseries:
+
+- `measured[t]` — what this voxel actually recorded. Noisy, drifting, contaminated by motion and physiology.
+- `predicted[t]` — the stimulus convolved with the HRF (one of these per condition). Same length, same TR grid.
+
+The fit at every voxel is a linear regression:
+
+```
+measured[t] = β × predicted[t] + (nuisance regressors) + noise[t]
+```
+
+Three quantities per voxel come out:
+
+- **β (beta)** — the scale factor on the predicted signal. "At this voxel, when the predicted signal goes up by 1 unit, the measured signal goes up by β units." A large β means the voxel responds strongly to this condition.
+- **SE(β) — standard error of β** — how uncertain β is given the noise in this voxel's data. Long scans and clean voxels have small SE; short scans and noisy voxels have large SE.
+- **t-statistic: t = β / SE(β)** — how many standard errors β sits away from zero. Large |t| means β is unlikely to be explained by noise alone.
+
+The single-subject **activation map** is the t-statistic at every voxel, thresholded, colored, and overlaid on anatomy. But remember — this map is not the end goal. It's a Stage 1 output. The β at every voxel is what gets fed into Stage 3 group analysis across subjects.
+
+![Sample voxel timeseries from a somatosensory task. TR = 2.5 s, 130 timepoints. Red = predicted BOLD (stimulus convolved with HRF). Black = measured signal in this voxel. Blue = regression's fit to the black, using the red as the predictor. From afni01_intro.pdf p. 6.](../assets/day1/sample-timeseries.png){ width=700 }
+
+Look at the image. Red = predicted BOLD for a 27-s-on / 27-s-off block paradigm — note its rounded shape (the block stimulus was a square wave; the HRF convolution smoothed it). Black = this voxel's measured signal — noisy but visibly tracking the red. Blue = the regression's fit: `β × red` plus fitted nuisance terms. That blue hugs black is why we'd call this voxel activated — and the β at this voxel would be one of the numbers fed to Stage 3.
+
+### Nuisance regressors
+
+The "`(nuisance regressors)`" slot in the formula isn't a single term. It's a set of additional timeseries fit alongside the predicted BOLD — each gets its own β, estimated from the same regression. Every task-fMRI regression includes:
+
+- **Motion parameters (6 columns)** — three translations and three rotations from motion correction. These absorb signal changes driven by head movement so those changes don't get falsely attributed to your stimulus.
+- **Polynomial drift terms** — low-order polynomials per scan run, absorbing slow scanner drift (minutes-scale intensity changes unrelated to the task).
+- **Run indicators** — per-run baseline offsets, so each run is normalized independently.
+- **Censor spikes** (optional) — one-off regressors for individual high-motion or outlier timepoints, effectively removing them from the fit.
+
+These are not separate preprocessing steps. They are *columns in the same regression as the stimulus predictor*. Their βs are estimated and the variance they explain is removed from the estimate of the stimulus β. This is why it's called "nuisance regression" even though it isn't run as its own step.
+
+---
+
+## What `3dDeconvolve` does
+
+`3dDeconvolve` is AFNI's implementation of Stage 1. Given a preprocessed EPI, stim timing files, and a choice of HRF shape, it produces β and t maps at every voxel for every condition and contrast, in one command. Lecture 2 is the deep dive; here's the shape.
+
+**Inputs you give it**
+
+- The preprocessed BOLD dataset (4D — one sub-brick per TR).
+- One or more **stim timing files**: plain-text files listing when events of each condition occurred (in seconds, relative to each run's start).
+- A specification of the **HRF shape** to use. Options include a canonical single-peak shape (`GAM`, `SPMG1`, `BLOCK`) or a flexible data-driven shape estimated from the data itself (`TENT`, `CSPLIN`).
+- Optional: motion regressors, censoring files, polynomial drift order, and contrasts between conditions (`-gltsym` specifications — these are the Stage 2 combinations).
+
+**What it does inside**
+
+1. For each stim timing file, builds the stimulus timeseries on the TR grid and convolves it with the HRF — producing one predicted BOLD timeseries per condition (the regressors of interest).
+2. Adds the nuisance regressors: motion (6), polynomials for drift (3–5 per run), per-run indicators, censor spikes.
+3. Stacks all regressors into a **design matrix**: one row per timepoint, one column per regressor.
+4. At every voxel, solves a least-squares regression — finds the β-vector that minimizes the squared difference between `(design matrix) × β` and that voxel's measured BOLD timeseries.
+5. Computes SE and t-stat for each β, the overall F-stat for the model, and t-stats for any contrasts you specified.
+
+**Outputs**
+
+- A `stats.*+tlrc` dataset: one labeled sub-brick per statistical quantity (β, t, F, contrast t's). This is where the sub-brick taxonomy above shows up in real analyses — and these β sub-bricks are what downstream Stage 3 programs will consume.
+- The **design matrix itself**, saved as `X.xmat.1D` — a plain-text file you can open and inspect. Lecture 3 is partly about reading these to sanity-check a fit.
+- Optional: residuals, fitted timeseries, per-voxel model-fit quality.
+
+**Why "deconvolution"?** You supply the forward model (stimulus timings + HRF shape, which together specify how each condition *would* produce BOLD). The program solves the inverse (what amplitudes best explain the measured BOLD). That forward-then-inverse workflow is historically called deconvolution. The `3d` prefix means it operates on every voxel of a 3D grid.
+
+**Why it's one program, not four.** Stimulus convolution, design-matrix assembly, per-voxel regression, and stats computation are tightly coupled — changing any piece (different HRF, additional nuisance regressor, a new contrast) requires redoing all of them consistently. Bundling them into one program with a well-documented flag set is more robust than chaining four separate tools.
+
+**The output is not the scientific finding.** That β map from `3dDeconvolve` is one subject's data. To answer any of the questions at the top of this section (group activation, between-group differences, correlations with behavior, within-subject change), you run a different program on the collection of βs from many subjects. That's Stage 3, and it's later in the bootcamp.
 
 ---
 
